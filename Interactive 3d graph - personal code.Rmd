@@ -1,0 +1,38 @@
+---
+title: "Interactive 3d graph - personal code"
+output: html_document
+date: "2024-03-15"
+---
+```{r}
+# library
+library(rgl)
+
+# Let's us put an rgl plot in rMarkdown
+setupKnitr()
+
+# Built in data set from R
+data <- iris
+
+# Indicate the 3 colours we would like to use in the plot
+colours <- c("blue", "magenta", "springgreen")
+
+# Add a column to the data set, to attribute a specific colour for the three difference species
+data$colour <- colours[ as.numeric(data$Species) ]
+
+# Plotting the graph
+plot3d(
+  x = data$Sepal.Length, y = data$Sepal.Width, z = data$Petal.Length, col = data$colour, type = "s", radius = 0.1, xlab = "Sepal Length", ylab = "Sepal Width", zlab = "Petal Length"
+)
+
+# Display Interactive widget within rMarkdown
+rglwidget()
+
+# To be able to knit as an html
+saveWidget(rglwidget(width = 520, height = 520), 
+                        file = "New Interactive 3d graph - personal code.html",
+                        libdir = "null",
+                        selfcontained = FALSE
+                        )
+
+```
+
